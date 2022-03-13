@@ -1,7 +1,7 @@
-function AddListForm({ handleAddList, handleCategoryName, listName }: any) {
+function AddListForm({ handleAddCategory, handleCategoryName, listName }: any) {
   return (
     <div>
-      <form className="add-list-form" onSubmit={handleAddList}>
+      <form className="add-list-form" onSubmit={handleAddCategory}>
         <input type="text" onChange={handleCategoryName} value={listName} />
         <button type="submit" className="btn">
           {" "}

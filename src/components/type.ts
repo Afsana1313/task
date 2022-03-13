@@ -3,7 +3,7 @@ export type ListType = {
   id: number;
   category: string;
 };
-export type CardType = {
+export type CategoryType = {
   id: number;
   title: string;
 };

@@ -1,21 +1,24 @@
-import ListContainer from './components/ListContainer';
+import ListContainer from "./components/ListContainer";
 //import './App.scss';
-import { createContext, useState } from 'react' 
-import { ListType } from './components/type';
+import { createContext, useState } from "react";
+import { CategoryType, ListType } from "./components/type";
 
 export const ThemeContext = createContext<any>(null);
 function App() {
-  const [list, setList] = useState<ListType[] | null>(null)
+  const [list, setList] = useState<ListType[] | null>(null);
+  const [categoryList, setCategoryList] = useState<CategoryType[] | null>(null);
   const value = {
     list,
-    setList
-  }
+    setList,
+    categoryList,
+    setCategoryList,
+  };
   return (
     <ThemeContext.Provider value={value}>
       <div className="App">
-         <h2>KanBan List</h2>
-          <ListContainer/>
-        </div>
+        <h2>KanBan List</h2>
+        <ListContainer />
+      </div>
     </ThemeContext.Provider>
   );
 }

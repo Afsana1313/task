@@ -6,17 +6,19 @@ import SingleList from "./SingleList";
 
 function ListContainer() {
   const [categoryName, setCategoryName] = useState("");
-  const { list, setList } = useContext(ThemeContext);
+  const { list, setList, categoryList, setCategoryList } =
+    useContext(ThemeContext);
 
   const handleAddCategory = (e: any) => {
     e.preventDefault();
     try {
       const newItem = {
-        name: categoryName,
-        id: list?.length == null ? 1 : list?.length + 1,
-        card: [],
+        title: categoryName,
+        id: categoryList?.length == null ? 1 : categoryList?.length + 1,
       };
-      list?.length == null ? setList([newItem]) : setList([...list, newItem]);
+      categoryList?.length == null
+        ? setCategoryList([newItem])
+        : setCategoryList([...categoryList, newItem]);
       setCategoryName("");
     } catch (e) {
       console.log(e);
@@ -29,8 +31,10 @@ function ListContainer() {
   var num = [1, 2, 3, 4, 5, 6];
   return (
     <div className="list-container-wrapper">
+      {console.log(categoryList)}
       <div className="list-container" id="list-container">
-        {list?.map((i: any) => (
+        {categoryList?.map((i: any) => (
+          // <span key={i.id}>{i.title}</span>
           <SingleList item={i} key={i.id} />
         ))}
         <AddListForm
