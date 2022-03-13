@@ -15,6 +15,7 @@ body{
     border:  none;
     background-color: #e8e8e8;
     padding: 10px;
+    margin: 15px;
 }
 .single-card-container{
     background-color: white;
@@ -27,17 +28,24 @@ body{
 }
 .list-container{
     padding: 2vw;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 .list-container-wrapper, .list-container{
     text-align: left;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-   
 }
 .add-list-form{
     width: 150px;
     display: flex;
     flex-direction: column;
+}
+.add-card-btn{
+    width: auto;
+    text-align: center;
+    background-color: white;
+    margin-top: 15px;
+    padding: 5px 0;
 }
 /* Button */
 .btn{

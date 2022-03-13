@@ -1,12 +1,9 @@
 import { ListType } from "../components/type";
-export const getNewList = (
-  list: ListType[],
-  title: string,
-  cardName: string
-) => {
-  //console.log(id);
-  var newList = list;
-  newList.push({ name: cardName, id: list?.length + 1, category: title });
+export const getNewList = (list: ListType[], title: string, data: string) => {
+  const newList = list?.map((i: ListType) => {
+    if (i.name === data) i.category = title;
+    return i;
+  });
   return newList;
 };
 
