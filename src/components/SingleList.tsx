@@ -1,14 +1,22 @@
 import { useContext, useState } from "react";
 import { ThemeContext } from "../App";
-import { getNewList } from "../functions/controlFunctions";
+import {
+  getNewList,
+  deleteListName,
+  renameListName,
+} from "../functions/controlFunctions";
 import { ListType } from "../components/type";
 import { AddCardForm } from "./AddCardForm";
-import { PlusOutlined } from "@ant-design/icons";
+import { PlusOutlined, DeleteOutlined, LockOutlined } from "@ant-design/icons";
+import CardContainer from "./CardContainer";
 
 function SingleList({ item }: any) {
+  const [isDisabled, setIsDisabled] = useState<boolean>(true);
+  const [newListName, setNewListName] = useState<string>(item.title);
   const [isFormOpen, setFormOpen] = useState<boolean>(false);
   const [card, setCard] = useState<string>("");
-  const { list, setList } = useContext(ThemeContext);
+  const { list, setList, categoryList, setCategoryList } =
+    useContext(ThemeContext);
   const { title, id } = item;
 
   const handleSetCardName = (e: any) => {
@@ -34,21 +42,37 @@ function SingleList({ item }: any) {
   const handleOnDrop = (e: any, title: string) => {
     e.preventDefault();
     var data = e.dataTransfer.getData("text");
-    //console.log(e);
-    // e.target.appendChild(data);
     setList(() => getNewList(list, title, data));
-    /* setList(() => {
-      const newList = list?.map((i: ListType) => {
-        if (i.name === data) i.category = title;
-        return i;
-      });
-      return newList;
-    });*/
     e.dataTransfer.clearData();
   };
 
   const handleAllowDrop = (e: any) => {
     e.preventDefault();
+  };
+  const handleDeleteList = (e: any) => {
+    const [newCategoryList, newList] = deleteListName(
+      title,
+      list,
+      categoryList
+    );
+    setList(newList);
+    setCategoryList(newCategoryList);
+  };
+  const handleRenameListName = (e: any) => {
+    console.log("check korte ashsi");
+    setIsDisabled(true);
+  };
+  const handleOnChange = (e: any) => {
+    setNewListName(e.target.value);
+
+    const [newList, newCategoryList] = renameListName(
+      title,
+      newListName,
+      list,
+      categoryList
+    );
+    setList(newList);
+    setCategoryList(newCategoryList);
   };
   return (
     <div
@@ -62,28 +86,30 @@ function SingleList({ item }: any) {
       key={item?.id}
     >
       {console.log("list", list)}
-      <div key={id}>
-        {id} {title}
+      <div className="list-title" onDoubleClick={handleRenameListName}>
+        <input
+          onChange={handleOnChange}
+          //onDoubleClick={handleRenameListName}
+          value={title}
+          disabled={true}
+        />
+
+        <span onClick={handleDeleteList}>
+          <DeleteOutlined />
+        </span>
       </div>
       {list
         ?.filter((i: ListType) => i.category === title)
         .map((i: ListType) => (
-          <div
-            key={i.id}
-            draggable="true"
-            onDragStart={(e) => handleDragStart(e, i.name)}
-          >
-            {i.name}
-          </div>
+          <CardContainer key={i.id} i={i} handleDragStart={handleDragStart} />
         ))}
-      {!!isFormOpen && (
+      {isFormOpen ? (
         <AddCardForm
           handleAddCard={handleAddCard}
           handleSetCardName={handleSetCardName}
           card={card}
         />
-      )}
-      {!isFormOpen && (
+      ) : (
         <div onClick={() => setFormOpen(true)} className="add-card-btn">
           <PlusOutlined />
         </div>

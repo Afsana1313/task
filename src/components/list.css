@@ -10,10 +10,10 @@ body{
     text-align: center;
 }
 .single-list{
-    width: 150px;
+    width: 200px;
     height: 100%;
     border:  none;
-    background-color: #e8e8e8;
+    background-color: white;
     padding: 10px;
     margin: 15px;
 }
@@ -36,16 +36,22 @@ body{
     text-align: left;
 }
 .add-list-form{
-    width: 150px;
+    width: inherit;
     display: flex;
     flex-direction: column;
+    margin: 15px;
+    padding: 10px;
 }
 .add-card-btn{
-    width: auto;
+    width: 200px;
+    height: 20px;
     text-align: center;
-    background-color: white;
+    background-color: #0076ce;
     margin-top: 15px;
     padding: 5px 0;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
 }
 /* Button */
 .btn{
@@ -58,3 +64,26 @@ body{
     margin-top: 5px;
     width: 100%;
 }
+.card-container{
+    background-color: #f2f2f2;
+    margin: 5px 0;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.list-title{
+    outline: none;
+    font-size: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.list-title  input:focus, .list-title input{
+    font-size: 18px;
+    outline: none;
+    border: none;
+    background-color: white;
+}
+

@@ -3,9 +3,11 @@ import { ThemeContext } from "../App";
 import "./list.css";
 import AddListForm from "./AddListForm";
 import SingleList from "./SingleList";
+import { PlusOutlined } from "@ant-design/icons";
 
 function ListContainer() {
   const [categoryName, setCategoryName] = useState("");
+  const [isFormOpen, setFormOpen] = useState(false);
   const { list, setList, categoryList, setCategoryList } =
     useContext(ThemeContext);
 
@@ -23,6 +25,7 @@ function ListContainer() {
     } catch (e) {
       console.log(e);
     } finally {
+      setFormOpen(false);
     }
   };
   const handleCategoryName = (e: any) => {
@@ -37,11 +40,21 @@ function ListContainer() {
           // <span key={i.id}>{i.title}</span>
           <SingleList item={i} key={i.id} />
         ))}
-        <AddListForm
-          handleAddCategory={handleAddCategory}
-          handleCategoryName={handleCategoryName}
-          listName={categoryName}
-        />
+        {isFormOpen ? (
+          <AddListForm
+            handleAddCategory={handleAddCategory}
+            handleCategoryName={handleCategoryName}
+            listName={categoryName}
+          />
+        ) : (
+          <div
+            onClick={() => setFormOpen(true)}
+            style={{ margin: "25px" }}
+            className="add-card-btn"
+          >
+            <PlusOutlined />
+          </div>
+        )}
       </div>
     </div>
   );
