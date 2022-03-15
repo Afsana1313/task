@@ -1,10 +1,11 @@
 import { ListType, CategoryType } from "../components/type";
-import { useContext } from "react";
+
 export const getNewList = (list: ListType[], title: string, data: string) => {
   const newList = list?.map((i: ListType) => {
     if (i.name === data) i.category = title;
     return i;
   });
+  localStorage.setItem("list", JSON.stringify(newList));
   return newList;
 };
 
@@ -24,9 +25,13 @@ export const deleteListName = (
 ) => {
   console.log(list, categoryList);
 
-  const newCategoryList = categoryList?.filter((i: any) => title !== i.title);
+  const newCategoryList = reArrangeId(
+    categoryList?.filter((i: CategoryType) => title !== i.title)
+  );
 
-  const newList = list.filter((i: any) => title !== i.category);
+  const newList = reArrangeId(
+    list.filter((i: ListType) => title !== i.category)
+  );
   return [newCategoryList, newList];
 };
 
@@ -37,12 +42,24 @@ export const renameListName = (
   list: ListType[]
 ) => {
   const newList = list.map((i: ListType) => {
-    if (title == i.category) i.category = newListName;
+    if (title === i.category) i.category = newListName;
     return i;
   });
   const newCategoryList = categoryList?.map((i: CategoryType) => {
-    if (title == i.title) i.title = newListName;
+    if (title === i.title) i.title = newListName;
     return i;
   });
   return [newList, newCategoryList];
+};
+
+const reArrangeId = (list: ListType[] | CategoryType[]) => {
+  return list?.map((i: ListType | CategoryType, index: number) => {
+    i.id = index + 1;
+    return i;
+  });
+};
+export const deleteCard = (id: number, list: ListType[]) => {
+  const newList = reArrangeId(list.filter((i: ListType) => i.id !== id));
+  localStorage.setItem("list", JSON.stringify(newList));
+  return newList;
 };

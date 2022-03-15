@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { ThemeContext } from "../App";
 import {
   getNewList,
@@ -7,18 +7,28 @@ import {
 } from "../functions/controlFunctions";
 import { ListType } from "../components/type";
 import { AddCardForm } from "./AddCardForm";
-import { PlusOutlined, DeleteOutlined, LockOutlined } from "@ant-design/icons";
+import { PlusOutlined, DeleteOutlined } from "@ant-design/icons";
 import CardContainer from "./CardContainer";
+import { getRandomColor } from "../color/color";
 
-function SingleList({ item }: any) {
+type GetSingleListType = {
+  item: {
+    title: string;
+    id: number;
+  };
+};
+function SingleList({ item }: GetSingleListType) {
+  const { title } = item;
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
-  const [newListName, setNewListName] = useState<string>(item.title);
+  const [newListName, setNewListName] = useState<string>(title);
   const [isFormOpen, setFormOpen] = useState<boolean>(false);
   const [card, setCard] = useState<string>("");
   const { list, setList, categoryList, setCategoryList } =
     useContext(ThemeContext);
-  const { title, id } = item;
 
+  useEffect(() => {
+    console.log("categor list", list);
+  }, [list]);
   const handleSetCardName = (e: any) => {
     setCard(e.target.value);
   };
@@ -28,15 +38,17 @@ function SingleList({ item }: any) {
       name: card,
       id: list?.length == null ? 1 : list?.length + 1,
       category: title,
+      color: `${getRandomColor()}`,
     };
-    console.log(newCard);
     list?.length == null ? setList([newCard]) : setList([...list, newCard]);
+    list?.length == null
+      ? localStorage.setItem("list", JSON.stringify([newCard]))
+      : localStorage.setItem("list", JSON.stringify([...list, newCard]));
     setCard("");
     setFormOpen(false);
   };
 
   const handleDragStart = (e: any, cardTitle: string) => {
-    // console.log(cardTitle, listId);
     e.dataTransfer.setData("text", cardTitle);
   };
   const handleOnDrop = (e: any, title: string) => {
@@ -57,23 +69,28 @@ function SingleList({ item }: any) {
     );
     setList(newList);
     setCategoryList(newCategoryList);
+    localStorage.setItem("list", JSON.stringify(newList));
+    localStorage.setItem("categoryList", JSON.stringify(newCategoryList));
   };
-  const handleRenameListName = (e: any) => {
-    console.log("check korte ashsi");
-    setIsDisabled(true);
+  const handleDisableInput = (e: any) => {
+    setIsDisabled(false);
+    console.log("clicked");
   };
   const handleOnChange = (e: any) => {
     setNewListName(e.target.value);
-
-    const [newList, newCategoryList] = renameListName(
-      title,
-      newListName,
-      list,
-      categoryList
-    );
-    setList(newList);
-    setCategoryList(newCategoryList);
+    console.log(newListName);
+    // setTimeout(() => {
+    //   const [newList, newCategoryList] = renameListName(
+    //     title,
+    //     newListName,
+    //     list,
+    //     categoryList
+    //   );
+    //   setList(newList);
+    //   setCategoryList(newCategoryList);
+    // }, 5000);
   };
+  const handleRenameList = () => {};
   return (
     <div
       className="single-list"
@@ -81,17 +98,16 @@ function SingleList({ item }: any) {
       onDragOver={handleAllowDrop}
       onDragEnter={(e) => {
         e.preventDefault();
-        console.log("entered");
       }}
       key={item?.id}
     >
-      {console.log("list", list)}
-      <div className="list-title" onDoubleClick={handleRenameListName}>
+      <div className="list-title">
         <input
           onChange={handleOnChange}
-          //onDoubleClick={handleRenameListName}
-          value={title}
-          disabled={true}
+          onClick={handleDisableInput}
+          value={newListName || title}
+          onFocus={handleRenameList}
+          disabled={isDisabled}
         />
 
         <span onClick={handleDeleteList}>

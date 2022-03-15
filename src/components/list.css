@@ -1,21 +1,41 @@
 body{
-    background-color: #f5f5f5;
-    /* background-image: url('../image/bg-4.jpg');
+    background-color: white;
+     background-image: url('../image/bg-2.jpg');
     background-position: center;
-    background-attachment: fixed; */
+    background-attachment: fixed; 
+    background-repeat: no-repeat; 
+    margin-bottom: 100px;
+}
+*{
+    word-wrap: break-word;
+    transition: all 0.4s ease-in;
+}
+input::placeholder{
+    color: black;
 }
 .App{
     width: 80vw;
     margin: 0 auto;
     text-align: center;
 }
-.single-list{
-    width: 200px;
+.App h2{
+    font-size: 40px;
+    line-height: 24px;
+    padding: 50px 0;
+    color: black;
+    background-color: rgba(255,255,255,0.9);
+}
+.single-list{ 
+    width: 20vw;
     height: 100%;
     border:  none;
     background-color: white;
     padding: 10px;
-    margin: 15px;
+    margin: 15px 7px;
+    border-radius: 0 0 10px 10px;
+    box-shadow: -8px 10px 6px -1px rgba(0,0,0,0.21);
+    -webkit-box-shadow: -8px 10px 6px -1px rgba(0,0,0,0.21);
+    -moz-box-shadow: -8px 10px 6px -1px rgba(0,0,0,0.21);
 }
 .single-card-container{
     background-color: white;
@@ -31,19 +51,20 @@ body{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    background-color: rgba(255,255,255,0.9);
 }
 .list-container-wrapper, .list-container{
     text-align: left;
 }
 .add-list-form{
-    width: inherit;
+    width: 100%;
     display: flex;
     flex-direction: column;
     margin: 15px;
     padding: 10px;
 }
 .add-card-btn{
-    width: 200px;
+    width: 20vw;
     height: 20px;
     text-align: center;
     background-color: #0076ce;
@@ -67,10 +88,25 @@ body{
 .card-container{
     background-color: #f2f2f2;
     margin: 5px 0;
+    margin-bottom: 10px;
     padding: 5px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
+    text-align: left;
+}
+.card-text-container{
+    width: 180px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+.card-icon-container{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    flex-direction: row;
+    font-size: 14px;
+    color: gray;
 }
 .list-title{
     outline: none;
@@ -87,3 +123,14 @@ body{
     background-color: white;
 }
 
+@media only screen and (max-width: 600px) {
+  .App {
+    width: 95vw;
+  }
+  .single-list{
+      width: 35vw;
+  }
+  .add-card-btn{
+      width: 35vw;
+  }
+}
