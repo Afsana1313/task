@@ -1,5 +1,14 @@
-import { useRef, useEffect } from "react";
-function AddListForm({ handleAddCategory, handleCategoryName, listName }: any) {
+import React, { useRef, useEffect } from "react";
+type GetAddListForm = {
+  handleAddCategory: (e: React.FormEvent<HTMLFormElement>) => void;
+  handleCategoryName: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  listName: string;
+};
+function AddListForm({
+  handleAddCategory,
+  handleCategoryName,
+  listName,
+}: GetAddListForm) {
   const inputRef = useRef<any>(null);
   useEffect(() => {
     inputRef.current.focus();

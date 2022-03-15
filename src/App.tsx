@@ -16,7 +16,7 @@ function App() {
   return (
     <ThemeContext.Provider value={value}>
       <div className="App">
-        <h2>KanBan List</h2>
+        <h2>Kanban Board</h2>
         <ListContainer />
       </div>
     </ThemeContext.Provider>

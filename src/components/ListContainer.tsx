@@ -8,8 +8,7 @@ import { PlusOutlined } from "@ant-design/icons";
 function ListContainer() {
   const [categoryName, setCategoryName] = useState("");
   const [isFormOpen, setFormOpen] = useState(false);
-  const { list, setList, categoryList, setCategoryList } =
-    useContext(ThemeContext);
+  const { categoryList, setCategoryList } = useContext(ThemeContext);
 
   const handleAddCategory = (e: any) => {
     e.preventDefault();
@@ -31,7 +30,7 @@ function ListContainer() {
   const handleCategoryName = (e: any) => {
     setCategoryName(e.target.value);
   };
-  var num = [1, 2, 3, 4, 5, 6];
+
   return (
     <div className="list-container-wrapper">
       {console.log(categoryList)}
@@ -52,7 +51,7 @@ function ListContainer() {
             style={{ margin: "25px" }}
             className="add-card-btn"
           >
-            <PlusOutlined />
+            <PlusOutlined /> Add New List
           </div>
         )}
       </div>
