@@ -41,6 +41,9 @@ function SingleList({ item }: GetSingleListType) {
       color: `${getRandomColor()}`,
     };
     list?.length == null ? setList([newCard]) : setList([...list, newCard]);
+    list?.length == null
+      ? localStorage.setItem("list", JSON.stringify([newCard]))
+      : localStorage.setItem("list", JSON.stringify([...list, newCard]));
     setCard("");
     setFormOpen(false);
   };
@@ -66,6 +69,8 @@ function SingleList({ item }: GetSingleListType) {
     );
     setList(newList);
     setCategoryList(newCategoryList);
+    localStorage.setItem("list", JSON.stringify(newList));
+    localStorage.setItem("categoryList", JSON.stringify(newCategoryList));
   };
   const handleDisableInput = (e: any) => {
     setIsDisabled(false);

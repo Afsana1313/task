@@ -20,6 +20,12 @@ function ListContainer() {
       categoryList?.length == null
         ? setCategoryList([newItem])
         : setCategoryList([...categoryList, newItem]);
+      categoryList?.length == null
+        ? localStorage.setItem("categoryList", JSON.stringify([newItem]))
+        : localStorage.setItem(
+            "categoryList",
+            JSON.stringify([...categoryList, newItem])
+          );
       setCategoryName("");
     } catch (e) {
       console.log(e);

@@ -5,6 +5,7 @@ export const getNewList = (list: ListType[], title: string, data: string) => {
     if (i.name === data) i.category = title;
     return i;
   });
+  localStorage.setItem("list", JSON.stringify(newList));
   return newList;
 };
 
@@ -59,5 +60,6 @@ const reArrangeId = (list: ListType[] | CategoryType[]) => {
 };
 export const deleteCard = (id: number, list: ListType[]) => {
   const newList = reArrangeId(list.filter((i: ListType) => i.id !== id));
+  localStorage.setItem("list", JSON.stringify(newList));
   return newList;
 };
