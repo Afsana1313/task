@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect, useRef } from "react";
+import React, { useContext, useState, useRef } from "react";
 import { ThemeContext } from "../App";
 import {
   getNewList,
@@ -19,18 +19,17 @@ type GetSingleListType = {
 };
 function SingleList({ item }: GetSingleListType) {
   const { title, id } = item;
-  const [isDisabled, setIsDisabled] = useState(true);
   const [newListName, setNewListName] = useState(title);
   const [isFormOpen, setFormOpen] = useState(false);
-  const [card, setCard] = useState<string>("");
+  const [card, setCard] = useState("");
   const { list, setList, categoryList, setCategoryList } =
     useContext(ThemeContext);
 
   const inputRef = useRef<any>(null);
-  const handleSetCardName = (e: any) => {
+  const handleSetCardName = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setCard(e.target.value);
   };
-  const handleAddCard = (e: any) => {
+  const handleAddCard = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newCard = {
       name: card,
@@ -46,7 +45,10 @@ function SingleList({ item }: GetSingleListType) {
     setFormOpen(false);
   };
 
-  const handleDragStart = (e: any, cardTitle: string) => {
+  const handleDragStart = (
+    e: React.DragEvent<HTMLDivElement>,
+    cardTitle: string
+  ) => {
     e.dataTransfer.setData("text", cardTitle);
   };
   const handleOnDrop = (e: any, title: string) => {
@@ -56,10 +58,10 @@ function SingleList({ item }: GetSingleListType) {
     e.dataTransfer.clearData();
   };
 
-  const handleAllowDrop = (e: any) => {
+  const handleAllowDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
   };
-  const handleDeleteList = (e: any) => {
+  const handleDeleteList = () => {
     const [newCategoryList, newList] = deleteListName(
       title,
       list,
@@ -70,11 +72,11 @@ function SingleList({ item }: GetSingleListType) {
     localStorage.setItem("list", JSON.stringify(newList));
     localStorage.setItem("categoryList", JSON.stringify(newCategoryList));
   };
-  const handleDisableInput = (e: any) => {
+  const handleDisableInput = () => {
     inputRef.current.focus();
     inputRef.current.userSelct = "none";
   };
-  const handleOnChange = (e: any) => {
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewListName(e.target.value);
   };
   const handleRenameList = () => {
@@ -90,7 +92,6 @@ function SingleList({ item }: GetSingleListType) {
       setList(newList);
       setCategoryList(newCategoryList);
       inputRef.current.blur();
-      setIsDisabled(!isDisabled);
     }, 5000);
   };
   const filteredList = list
