@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import { ThemeContext } from "../App";
 import {
   getNewList,
@@ -26,9 +26,10 @@ function SingleList({ item }: GetSingleListType) {
   const { list, setList, categoryList, setCategoryList } =
     useContext(ThemeContext);
 
+  const inputRef = useRef<any>(null);
   useEffect(() => {
-    // console.log("categor list", list);
-  }, [list]);
+    // inputRef.current.userSelect = "none";
+  }, []);
   const handleSetCardName = (e: any) => {
     setCard(e.target.value);
   };
@@ -73,17 +74,19 @@ function SingleList({ item }: GetSingleListType) {
     localStorage.setItem("categoryList", JSON.stringify(newCategoryList));
   };
   const handleDisableInput = (e: any) => {
-    setIsDisabled(!isDisabled);
-    console.log("clicked");
+    //setIsDisabled(!isDisabled);
+    inputRef.current.focus();
+    inputRef.current.userSelct = "none";
+    //inputRef.current.userSelect = "none";
+    //console.log("clicked");
   };
   const handleOnChange = (e: any) => {
     setNewListName(e.target.value);
     console.log("newlistname ", e.target.value);
   };
   const handleRenameList = () => {
-    //console.log("title keno undefined hobe ??? ", title);
-    //
     setTimeout(() => {
+      console.log("accha ei 5sec pore hocche ta ki??");
       const [newList, newCategoryList] = renameListName(
         id,
         title,
@@ -91,15 +94,15 @@ function SingleList({ item }: GetSingleListType) {
         list,
         categoryList
       );
-      console.log(newList, newCategoryList);
+      //console.log(newList, newCategoryList);
       localStorage.setItem("list", JSON.stringify(newList));
       localStorage.setItem("categoryList", JSON.stringify(newCategoryList));
       setList(newList);
       setCategoryList(newCategoryList);
+      inputRef.current.blur();
       setIsDisabled(!isDisabled);
     }, 5000);
   };
-  let inputStyle = { userSelect: "none" };
   return (
     <div
       className="single-list"
@@ -111,13 +114,14 @@ function SingleList({ item }: GetSingleListType) {
       key={item?.id}
     >
       <div className="list-title">
-        <div onMouseEnter={handleDisableInput} onMouseOut={handleRenameList}>
+        <div onDoubleClick={handleDisableInput}>
           <input
+            onMouseOut={handleRenameList}
             onChange={handleOnChange}
             value={newListName}
-            disabled={isDisabled}
-            style={{ userSelect: "none" }}
-            autoFocus
+            ref={inputRef}
+            className="userSelectNone"
+            onClick={() => inputRef.current.blur()}
           />
         </div>
 
