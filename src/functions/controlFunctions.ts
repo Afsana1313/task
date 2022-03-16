@@ -1,5 +1,6 @@
-import { ListType, CategoryType } from "../components/type";
+import { ListType, CategoryType } from "components/type";
 
+// getNewList is called when a new card is dropped to a new List box  in SingleList.tsx
 export const getNewList = (list: ListType[], title: string, data: string) => {
   const newList = list?.map((i: ListType) => {
     if (i.name === data) i.category = title;
@@ -9,35 +10,23 @@ export const getNewList = (list: ListType[], title: string, data: string) => {
   return newList;
 };
 
-const getNewCard = (cardName: string, cardLength: number) => {
-  const newCard = {
-    title: cardName,
-    id: cardLength == null ? 1 : cardLength + 1,
-  };
-  //  console.log("new Card ", newCard);
-  return newCard;
-};
-
+// deleteListName function is called when a list is deleted, the list is deleted from list and category list
 export const deleteListName = (
   title: string,
   list: ListType[],
   categoryList: CategoryType[]
 ) => {
-  console.log(list, categoryList);
-
   const newCategoryList = reArrangeId(
     categoryList?.filter((i: CategoryType) => title !== i.title)
   );
-
   const newList = reArrangeId(
     list.filter((i: ListType) => title !== i.category)
   );
   return [newCategoryList, newList];
 };
-
+// renameListName is called when list name is renamed in SingleList.tsx
 export const renameListName = (
   id: number,
-  title: string,
   newListName: string,
   list: ListType[],
   categoryList: CategoryType[]
@@ -45,16 +34,13 @@ export const renameListName = (
   const a = categoryList?.find((i: CategoryType) => id === i.id);
   console.log(categoryList);
   const newList = list?.map((i: ListType) => {
-    //console.log("title ", title, " i.category ", i.category);
-    if (a?.title == i.category) i.category = newListName;
+    if (a?.title === i.category) i.category = newListName;
     return i;
   });
-  // console.log(categoryList);
   const newCategoryList = categoryList?.map((i: CategoryType) => {
-    if (a?.title == i.title) i.title = newListName;
+    if (a?.title === i.title) i.title = newListName;
     return i;
   });
-  // console.log(newList, newCategoryList);
   return [newList, newCategoryList];
 };
 

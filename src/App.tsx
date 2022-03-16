@@ -1,12 +1,11 @@
 import ListContainer from "./components/ListContainer";
-//import './App.scss';
 import { createContext, useState, useEffect } from "react";
-import { CategoryType, ListType } from "./components/type";
+import { CategoryType, ListType } from "components/type";
 
 export const ThemeContext = createContext<any>(null);
 function App() {
-  const [list, setList] = useState<ListType[] | null>(null);
-  const [categoryList, setCategoryList] = useState<CategoryType[] | null>(null);
+  const [list, setList] = useState<ListType[] | null>(null); //the list contains the list of all cards of all categories
+  const [categoryList, setCategoryList] = useState<CategoryType[] | null>(null); // the Category List contains the list of all
   useEffect(() => {
     //  localStorage.removeItem("list");
     //  localStorage.removeItem("categoryList");

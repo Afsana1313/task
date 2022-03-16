@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { ThemeContext } from "../App";
-import "./list.css";
+import "../style/list.css";
 import AddListForm from "./AddListForm";
 import SingleList from "./SingleList";
 import { PlusOutlined } from "@ant-design/icons";
@@ -39,10 +39,8 @@ function ListContainer() {
 
   return (
     <div className="list-container-wrapper">
-      {/* {console.log(categoryList)} */}
       <div className="list-container" id="list-container">
         {categoryList?.map((i: any) => (
-          // <span key={i.id}>{i.title}</span>
           <SingleList item={i} key={i.id} />
         ))}
         {isFormOpen ? (

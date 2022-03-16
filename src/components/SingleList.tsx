@@ -89,7 +89,6 @@ function SingleList({ item }: GetSingleListType) {
       console.log("accha ei 5sec pore hocche ta ki??");
       const [newList, newCategoryList] = renameListName(
         id,
-        title,
         newListName,
         list,
         categoryList

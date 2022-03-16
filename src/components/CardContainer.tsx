@@ -1,7 +1,6 @@
 import { LockOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import React, { useState, useContext, useRef, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { ThemeContext } from "../App";
-import { getRandomColor } from "../color/color";
 import { deleteCard, renameCardName } from "../functions/controlFunctions";
 
 type GetCardContainerType = {
@@ -13,10 +12,6 @@ type GetCardContainerType = {
   handleDragStart: (e: React.DragEvent<HTMLDivElement>, name: string) => void;
 };
 function CardContainer({ i, handleDragStart }: GetCardContainerType) {
-  const inputRef = useRef<any>(null);
-  useEffect(() => {
-    // inputRef.current.focus();
-  }, []);
   const { list, setList } = useContext(ThemeContext);
   const [cardValue, setCardValue] = useState<string>(i.name);
   const [isEditOn, setIsEditOn] = useState<boolean>(false);
@@ -32,7 +27,6 @@ function CardContainer({ i, handleDragStart }: GetCardContainerType) {
       <span className="card-text-container">
         {isEditOn ? (
           <input
-            //ref={inputRef}
             onChange={(e) => setCardValue(e.target.value)}
             value={cardValue}
             onKeyUp={(e) => {
