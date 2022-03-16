@@ -8,14 +8,14 @@ function App() {
   const [list, setList] = useState<ListType[] | null>(null);
   const [categoryList, setCategoryList] = useState<CategoryType[] | null>(null);
   useEffect(() => {
+    //  localStorage.removeItem("list");
+    //  localStorage.removeItem("categoryList");
     if (localStorage.getItem("list") && localStorage.getItem("categoryList")) {
       setList(JSON.parse(localStorage.getItem("list") as string));
       setCategoryList(
         JSON.parse(localStorage.getItem("categoryList") as string)
       );
     }
-    // localStorage.setItem("list", JSON.stringify(list));
-    // localStorage.setItem("categoryList", JSON.stringify(categoryList));
   }, []);
   const value = {
     list,

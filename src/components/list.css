@@ -8,7 +8,7 @@ body{
 }
 *{
     word-wrap: break-word;
-    transition: all 0.4s ease-in;
+    /* transition: all 0.4s ease-in; */
 }
 input::placeholder{
     color: black;
@@ -99,6 +99,12 @@ input::placeholder{
     width: 180px;
     margin-bottom: 10px;
     padding: 10px;
+}
+.card-text-container input{
+    width: 90%;
+    border: none;
+    outline: none;
+    background-color: transparent;
 }
 .card-icon-container{
     display: flex;

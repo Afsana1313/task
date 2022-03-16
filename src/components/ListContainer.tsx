@@ -39,7 +39,7 @@ function ListContainer() {
 
   return (
     <div className="list-container-wrapper">
-      {console.log(categoryList)}
+      {/* {console.log(categoryList)} */}
       <div className="list-container" id="list-container">
         {categoryList?.map((i: any) => (
           // <span key={i.id}>{i.title}</span>

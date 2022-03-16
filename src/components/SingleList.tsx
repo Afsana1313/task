@@ -18,16 +18,16 @@ type GetSingleListType = {
   };
 };
 function SingleList({ item }: GetSingleListType) {
-  const { title } = item;
-  const [isDisabled, setIsDisabled] = useState<boolean>(true);
-  const [newListName, setNewListName] = useState<string>(title);
-  const [isFormOpen, setFormOpen] = useState<boolean>(false);
+  const { title, id } = item;
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [newListName, setNewListName] = useState(title);
+  const [isFormOpen, setFormOpen] = useState(false);
   const [card, setCard] = useState<string>("");
   const { list, setList, categoryList, setCategoryList } =
     useContext(ThemeContext);
 
   useEffect(() => {
-    console.log("categor list", list);
+    // console.log("categor list", list);
   }, [list]);
   const handleSetCardName = (e: any) => {
     setCard(e.target.value);
@@ -73,24 +73,33 @@ function SingleList({ item }: GetSingleListType) {
     localStorage.setItem("categoryList", JSON.stringify(newCategoryList));
   };
   const handleDisableInput = (e: any) => {
-    setIsDisabled(false);
+    setIsDisabled(!isDisabled);
     console.log("clicked");
   };
   const handleOnChange = (e: any) => {
     setNewListName(e.target.value);
-    console.log(newListName);
-    // setTimeout(() => {
-    //   const [newList, newCategoryList] = renameListName(
-    //     title,
-    //     newListName,
-    //     list,
-    //     categoryList
-    //   );
-    //   setList(newList);
-    //   setCategoryList(newCategoryList);
-    // }, 5000);
+    console.log("newlistname ", e.target.value);
   };
-  const handleRenameList = () => {};
+  const handleRenameList = () => {
+    //console.log("title keno undefined hobe ??? ", title);
+    //
+    setTimeout(() => {
+      const [newList, newCategoryList] = renameListName(
+        id,
+        title,
+        newListName,
+        list,
+        categoryList
+      );
+      console.log(newList, newCategoryList);
+      localStorage.setItem("list", JSON.stringify(newList));
+      localStorage.setItem("categoryList", JSON.stringify(newCategoryList));
+      setList(newList);
+      setCategoryList(newCategoryList);
+      setIsDisabled(!isDisabled);
+    }, 5000);
+  };
+  let inputStyle = { userSelect: "none" };
   return (
     <div
       className="single-list"
@@ -102,13 +111,15 @@ function SingleList({ item }: GetSingleListType) {
       key={item?.id}
     >
       <div className="list-title">
-        <input
-          onChange={handleOnChange}
-          onClick={handleDisableInput}
-          value={newListName || title}
-          onFocus={handleRenameList}
-          disabled={isDisabled}
-        />
+        <div onMouseEnter={handleDisableInput} onMouseOut={handleRenameList}>
+          <input
+            onChange={handleOnChange}
+            value={newListName}
+            disabled={isDisabled}
+            style={{ userSelect: "none" }}
+            autoFocus
+          />
+        </div>
 
         <span onClick={handleDeleteList}>
           <DeleteOutlined />
