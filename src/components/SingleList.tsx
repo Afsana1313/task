@@ -27,9 +27,6 @@ function SingleList({ item }: GetSingleListType) {
     useContext(ThemeContext);
 
   const inputRef = useRef<any>(null);
-  useEffect(() => {
-    // inputRef.current.userSelect = "none";
-  }, []);
   const handleSetCardName = (e: any) => {
     setCard(e.target.value);
   };
@@ -74,26 +71,20 @@ function SingleList({ item }: GetSingleListType) {
     localStorage.setItem("categoryList", JSON.stringify(newCategoryList));
   };
   const handleDisableInput = (e: any) => {
-    //setIsDisabled(!isDisabled);
     inputRef.current.focus();
     inputRef.current.userSelct = "none";
-    //inputRef.current.userSelect = "none";
-    //console.log("clicked");
   };
   const handleOnChange = (e: any) => {
     setNewListName(e.target.value);
-    console.log("newlistname ", e.target.value);
   };
   const handleRenameList = () => {
     setTimeout(() => {
-      console.log("accha ei 5sec pore hocche ta ki??");
       const [newList, newCategoryList] = renameListName(
         id,
         newListName,
         list,
         categoryList
       );
-      //console.log(newList, newCategoryList);
       localStorage.setItem("list", JSON.stringify(newList));
       localStorage.setItem("categoryList", JSON.stringify(newCategoryList));
       setList(newList);
@@ -102,6 +93,12 @@ function SingleList({ item }: GetSingleListType) {
       setIsDisabled(!isDisabled);
     }, 5000);
   };
+  const filteredList = list
+    ?.filter((i: ListType) => i.category === title)
+    .map((i: ListType) => (
+      <CardContainer key={i.id} i={i} handleDragStart={handleDragStart} />
+    ));
+
   return (
     <div
       className="single-list"
@@ -128,11 +125,7 @@ function SingleList({ item }: GetSingleListType) {
           <DeleteOutlined />
         </span>
       </div>
-      {list
-        ?.filter((i: ListType) => i.category === title)
-        .map((i: ListType) => (
-          <CardContainer key={i.id} i={i} handleDragStart={handleDragStart} />
-        ))}
+      {filteredList}
       {isFormOpen ? (
         <AddCardForm
           handleAddCard={handleAddCard}

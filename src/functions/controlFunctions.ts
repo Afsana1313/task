@@ -32,7 +32,6 @@ export const renameListName = (
   categoryList: CategoryType[]
 ) => {
   const a = categoryList?.find((i: CategoryType) => id === i.id);
-  console.log(categoryList);
   const newList = list?.map((i: ListType) => {
     if (a?.title === i.category) i.category = newListName;
     return i;

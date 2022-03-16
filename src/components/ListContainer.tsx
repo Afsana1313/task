@@ -36,13 +36,13 @@ function ListContainer() {
   const handleCategoryName = (e: any) => {
     setCategoryName(e.target.value);
   };
-
+  const singleList = categoryList?.map((i: any) => (
+    <SingleList item={i} key={i.id} />
+  ));
   return (
     <div className="list-container-wrapper">
       <div className="list-container" id="list-container">
-        {categoryList?.map((i: any) => (
-          <SingleList item={i} key={i.id} />
-        ))}
+        {singleList}
         {isFormOpen ? (
           <AddListForm
             handleAddCategory={handleAddCategory}
