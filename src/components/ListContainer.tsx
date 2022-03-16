@@ -4,13 +4,14 @@ import "../style/list.css";
 import AddListForm from "./AddListForm";
 import SingleList from "./SingleList";
 import { PlusOutlined } from "@ant-design/icons";
+import { CategoryType } from "./type";
 
 function ListContainer() {
   const [categoryName, setCategoryName] = useState("");
   const [isFormOpen, setFormOpen] = useState(false);
   const { categoryList, setCategoryList } = useContext(ThemeContext);
 
-  const handleAddCategory = (e: any) => {
+  const handleAddCategory = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const newItem = {
@@ -33,10 +34,10 @@ function ListContainer() {
       setFormOpen(false);
     }
   };
-  const handleCategoryName = (e: any) => {
+  const handleCategoryName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCategoryName(e.target.value);
   };
-  const singleList = categoryList?.map((i: any) => (
+  const singleList = categoryList?.map((i: CategoryType) => (
     <SingleList item={i} key={i.id} />
   ));
   return (

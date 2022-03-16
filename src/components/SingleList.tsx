@@ -51,7 +51,7 @@ function SingleList({ item }: GetSingleListType) {
   ) => {
     e.dataTransfer.setData("text", cardTitle);
   };
-  const handleOnDrop = (e: any, title: string) => {
+  const handleOnDrop = (e: React.DragEvent<HTMLDivElement>, title: string) => {
     e.preventDefault();
     var data = e.dataTransfer.getData("text");
     setList(() => getNewList(list, title, data));

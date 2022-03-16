@@ -103,9 +103,10 @@ input::placeholder{
     text-align: left;
 }
 .card-text-container{
-    width: 180px;
+    width: auto;
     margin-bottom: 10px;
     padding: 10px;
+    /* word-wrap: wrap; */
 }
 .card-text-container input{
     width: 90%;
@@ -135,15 +136,25 @@ input::placeholder{
     border: none;
     background-color: white;
 }
-
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 700px) {
   .App {
     width: 95vw;
   }
   .single-list{
-      width: 35vw;
+      width: 40%;
   }
   .add-card-btn{
-      width: 35vw;
+      width: 100%;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .App {
+    width: 95vw;
+  }
+  .single-list{
+      width: 100%;
+  }
+  .add-card-btn{
+      width: 100%;
   }
 }
